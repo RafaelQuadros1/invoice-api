@@ -24,8 +24,8 @@ class InvoiceResource extends JsonResource
             'amount' => $this->amount,
             'paid' => $this->is_paid ? 'pago' : 'pendiente',
             'type' => $this->types[$this->type] ?? 'Desconhecido',
-            'payment_date' => $this->is_paid ? Carbon::parse('payment_date')->format('d/m/y h:i:s'): null,
-
+            'PaymentDate' => $this->is_paid ? Carbon::parse($this->payment_date)->format('d-m-y h:i:s') : null,
+            'PaymentSince' => $this->is_paid ? carbon::parse($this->payment_date)->diffForHumans() : null ,
         ];
     }
 }
