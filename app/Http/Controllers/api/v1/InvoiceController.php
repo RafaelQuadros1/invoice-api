@@ -28,9 +28,9 @@ class InvoiceController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Invoice $invoice)
+    public function show(string $id)
     {
-        //
+        return new InvoiceResource(Invoice::findOrFail($id)->load('user'));
     }
 
     /**
