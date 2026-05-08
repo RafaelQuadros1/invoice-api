@@ -6,10 +6,13 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\InvoiceRequest;
 use App\Http\Resources\InvoiceResource;
 use App\Models\Invoice;
+use App\Traits\ApiResponse;
 use Illuminate\Http\Request;
 
 class InvoiceController extends Controller
 {
+    use ApiResponse;
+
     /**
      * Display a listing of the resource.
      */
@@ -23,11 +26,22 @@ class InvoiceController extends Controller
      */
     public function store(InvoiceRequest $request)
     {
-       $invoice = Invoice::create($request->validated());
+        try {
+            $invoice = Invoice::create($request->validated());
 
-       return response()->json($invoice, 201);
+            return $this->success(
+                'Invoice created success',
+                new InvoiceResource($invoice->load('user')),
+                201
+            );
+        } catch (\Exception $e) {
+            return $this->errors(
+                'Invoice created failed',
+                ['error' => $e->getMessage()],
+                500
+            );
+        }
     }
-
     /**
      * Display the specified resource.
      */
