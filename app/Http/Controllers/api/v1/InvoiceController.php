@@ -45,24 +45,57 @@ class InvoiceController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(Invoice $invoice)
     {
-        return new InvoiceResource(Invoice::findOrFail($id)->load('user'));
+        return new InvoiceResource(Invoice::findOrFail($invoice->id)->load('user'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Invoice $invoice)
+    public function update(InvoiceRequest $request, Invoice $invoice )
     {
-        //
+        try {
+            $invoice->update($request->all());
+
+            if ($invoice) {
+                return $this->success(
+                    'Invoice updated success',
+                    new InvoiceResource($invoice->load('user')),
+                    200
+                );
+            }
+
+        } catch (\Exception $e) {
+            return $this->errors(
+                'Invoice updated failed',
+                ['error' => $e->getMessage()],
+                404
+            );
+        }
+
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Invoice $invoice)
+    public function destroy( Request $request, Invoice $invoice)
     {
-        //
+        try {
+            $invoice = Invoice::findOrFail($invoice->id);
+            $invoice->delete();
+            return $this->success(
+                'Invoice deleted success',
+                null,
+                200
+            );
+
+        } catch (\Exception) {
+            return $this->errors(
+                'Invoice deleted failed',
+                ['error' => 'Invoice not found'],
+                404
+            );
+        }
     }
 }
