@@ -14,7 +14,7 @@ trait ApiResponse
         ], $status);
     }
 
-    public function errors(string $message, mixed $data = null, int $status,)
+    public function errors(string $message, mixed $data = null, int $status = 500)
     {
         return response()->json([
             'success' => false,
