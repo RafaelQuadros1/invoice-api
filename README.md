@@ -19,13 +19,15 @@ REST API built with **Laravel 13** and **PHP 8.3**, designed to manage users and
 
 The API currently exposes two public endpoints:
 
-| Method | Endpoint        | Description                           |
-| ------ | --------------- | ------------------------------------- |
-| GET    | `/api/users`    | List all users                        |
-| GET    | `/api/users/{id}` | Get a specific user by ID (with related invoices) |
-| GET    | `/api/invoices` | List all invoices (with related user) |
-| GET    | `/api/invoices/{id}` | Get a specific invoice by ID (with related user) |
-| POST   | `/api/invoices` | Create a new invoice                  |
+| Method | Endpoint             | Description                                       |
+| ------ | -------------------- | ------------------------------------------------- |
+| GET    | `/api/users`         | List all users                                    |
+| GET    | `/api/users/{id}`    | Get a specific user by ID (with related invoices) |
+| GET    | `/api/invoices`      | List all invoices (with related user)             |
+| GET    | `/api/invoices/{id}` | Get a specific invoice by ID (with related user)  |
+| POST   | `/api/invoices`      | Create a new invoice                              |
+| PUT    | `/api/invoices/{id}` | Update an existing invoice                        |
+| DELETE | `/api/invoices/{id}` | Delete an invoice                                 |
 
 ---
 
@@ -34,7 +36,6 @@ The API currently exposes two public endpoints:
 Planned next steps for the project:
 
 - [ ] colocar swagger api
-
 
 ---
 
