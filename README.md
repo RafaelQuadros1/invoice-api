@@ -31,6 +31,46 @@ The API currently exposes two public endpoints:
 
 ---
 
+## Filtering Invoices
+
+O endpoint `GET /api/invoices` aceita filtros via query string no formato `param[operador]=valor`.
+
+### Parâmetros disponíveis
+
+| Parâmetro      | Coluna no banco | Operadores aceitos                   |
+| -------------- | --------------- | ------------------------------------ |
+| `value`        | `amount`        | `gt`, `lt`, `eq`, `ne`, `gte`, `lte` |
+| `type`         | `type`          | `eq`, `ne`, `in`                     |
+| `paid`         | `is_paid`       | `eq`, `ne`                           |
+| `payment_date` | `payment_date`  | `gt`, `lt`, `eq`, `ne`, `gte`, `lte` |
+
+### Operadores
+
+| Operador | SQL  |
+| -------- | ---- |
+| `eq`     | `=`  |
+| `ne`     | `!=` |
+| `gt`     | `>`  |
+| `lt`     | `<`  |
+| `gte`    | `>=` |
+| `lte`    | `<=` |
+| `in`     | `IN` |
+
+### Exemplos
+
+```
+GET /api/invoices?value[gt]=100
+GET /api/invoices?value[gte]=50&value[lte]=500
+GET /api/invoices?paid[eq]=1
+GET /api/invoices?type[in]=C,P
+GET /api/invoices?type[eq]=B&paid[eq]=0
+GET /api/invoices?payment_date[gt]=2024-01-01&payment_date[lt]=2024-12-31
+```
+
+> Para `type[in]`, separe os valores por vírgula: `type[in]=C,B,P`
+
+---
+
 ## Simple Future
 
 Planned next steps for the project:
