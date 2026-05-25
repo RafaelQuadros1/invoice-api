@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\api\v1;
 
+use App\Filters\Filter;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\InvoiceRequest;
 use App\Http\Resources\InvoiceResource;
@@ -16,9 +17,12 @@ class InvoiceController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index(Invoice $invoice)
+    public function index(Request $request)
     {
-        return InvoiceResource::collection($invoice->all()->load('user'));
+        $query = Invoice::query()->with('user');
+        $invoices = (new Filter())->filter($query, $request)->get();
+
+        return InvoiceResource::collection($invoices);
     }
 
     /**
@@ -53,7 +57,7 @@ class InvoiceController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(InvoiceRequest $request, Invoice $invoice )
+    public function update(InvoiceRequest $request, Invoice $invoice)
     {
         try {
             $invoice->update($request->all());
@@ -79,7 +83,7 @@ class InvoiceController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy( Request $request, Invoice $invoice)
+    public function destroy(Request $request, Invoice $invoice)
     {
         try {
             $invoice = Invoice::findOrFail($invoice->id);
