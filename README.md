@@ -19,21 +19,21 @@ REST API built with **Laravel 13** and **PHP 8.3**, designed to manage users and
 
 The API currently exposes two public endpoints:
 
-| Method | Endpoint             | Description                                       |
-| ------ | -------------------- | ------------------------------------------------- |
-| GET    | `/api/users`         | List all users                                    |
-| GET    | `/api/users/{id}`    | Get a specific user by ID (with related invoices) |
-| GET    | `/api/invoices`      | List all invoices (with related user)             |
-| GET    | `/api/invoices/{id}` | Get a specific invoice by ID (with related user)  |
-| POST   | `/api/invoices`      | Create a new invoice                              |
-| PUT    | `/api/invoices/{id}` | Update an existing invoice                        |
-| DELETE | `/api/invoices/{id}` | Delete an invoice                                 |
+| Method | Endpoint                | Description                                       |
+| ------ | ----------------------- | ------------------------------------------------- |
+| GET    | `/api/v1/users`         | List all users                                    |
+| GET    | `/api/v1/users/{id}`    | Get a specific user by ID (with related invoices) |
+| GET    | `/api/v1/invoices`      | List all invoices (with related user)             |
+| GET    | `/api/v1/invoices/{id}` | Get a specific invoice by ID (with related user)  |
+| POST   | `/api/v1/invoices`      | Create a new invoice                              |
+| PUT    | `/api/v1/invoices/{id}` | Update an existing invoice                        |
+| DELETE | `/api/v1/invoices/{id}` | Delete an invoice                                 |
 
 ---
 
 ## Filtering Invoices
 
-O endpoint `GET /api/invoices` aceita filtros via query string no formato `param[operador]=valor`.
+O endpoint `GET /api/v1/invoices` aceita filtros via query string no formato `param[operador]=valor`.
 
 ### Parâmetros disponíveis
 
