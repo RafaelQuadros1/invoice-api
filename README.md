@@ -23,6 +23,7 @@ The API currently exposes two public endpoints:
 | ------ | ----------------------- | ------------------------------------------------- |
 | GET    | `/api/v1/users`         | List all users                                    |
 | GET    | `/api/v1/users/{id}`    | Get a specific user by ID (with related invoices) |
+| POST   | `/api/v1/users`         | Create a new user                                 |
 | GET    | `/api/v1/invoices`      | List all invoices (with related user)             |
 | GET    | `/api/v1/invoices/{id}` | Get a specific invoice by ID (with related user)  |
 | POST   | `/api/v1/invoices`      | Create a new invoice                              |
