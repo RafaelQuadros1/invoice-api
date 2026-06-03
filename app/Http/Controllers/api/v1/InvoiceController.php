@@ -20,7 +20,7 @@ class InvoiceController extends Controller
     public function index(Request $request)
     {
         $query = Invoice::query()->with('user');
-        $invoices = (new Filter())->filter($query, $request)->get();
+        $invoices = (new Filter())->filter($query, $request)->paginate();
 
         return InvoiceResource::collection($invoices);
     }
