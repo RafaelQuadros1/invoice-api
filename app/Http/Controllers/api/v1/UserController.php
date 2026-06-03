@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\api\v1;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\UpdateUserRequest;
 use App\Http\Requests\UserRequest;
 use App\Http\Resources\UserResource;
 use App\Models\User;
@@ -18,7 +19,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        return UserResource::collection(User::all()->load('invoices'));
+        return UserResource::collection(User::with('invoices')->paginate());
 
     }
 
@@ -55,9 +56,24 @@ class UserController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(UpdateUserRequest $request, string $id)
     {
-        //
+        try {
+            $user = User::findOrFail($id);
+            $user->update($request->validated());
+
+            return $this->success(
+                'User updated successfully',
+                new UserResource($user->load('invoices')),
+                200
+            );
+        } catch (\Exception $e) {
+            return $this->errors(
+                'User update failed',
+                ['error' => $e->getMessage()],
+                500
+            );
+        }
     }
 
     /**
@@ -65,6 +81,21 @@ class UserController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        try {
+            $user = User::findOrFail($id);
+            $user->delete();
+
+            return $this->success(
+                'User deleted successfully',
+                null,
+                200
+            );
+        } catch (\Exception $e) {
+            return $this->errors(
+                'User delete failed',
+                ['error' => $e->getMessage()],
+                500
+            );
+        }
     }
 }

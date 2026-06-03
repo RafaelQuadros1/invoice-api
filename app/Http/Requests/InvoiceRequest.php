@@ -23,7 +23,7 @@ class InvoiceRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'user_id' => ['required', 'integer'],
+            'user_id' => ['required', 'integer', 'exists:users,id'],
             'type' => ['required','string','max:1'],
             'is_paid' => ['required', 'numeric', 'between:0,1'],
             'payment_date' => ['nullable','date'],
